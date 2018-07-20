@@ -1,5 +1,7 @@
 package stock_analysis;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,11 +19,22 @@ import java.util.Comparator;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.SwingUtilities;
 
 import com.opencsv.CSVParser;
 import com.opencsv.CSVReader;
 
-public class StockCheckerConsole {
+/**
+ * This program takes a list of stocks and displays each stock's ticker, share price, P/E ratio, etc. 
+ * 
+ * All information is gathered from Yahoo Finance. 
+ * 
+ * The program searches for each stock's specific attribute, compiles each attribute for each stock in a Stock element, 
+ * and organizes the list based on a certain chosen attribute.
+ * @author Gabe Argush
+ *
+ */
+public class stockChecker {
 	/**
 	 * Sets up list of stocks, going through each entry via URL to that stock, and sorting the entries by certain criteria
 	 * @param args
@@ -34,26 +47,11 @@ public class StockCheckerConsole {
 	public static void main(String[] args) throws Exception {
 		analysis(stocks);
 	}
-	public static void analysis(String[] stocks) throws Exception {
+	public static ArrayList<Stock> analysis(String[] stocks) throws Exception {
 		ArrayList<Stock> entries = new ArrayList<Stock>();
-		//ArrayList<String> stonks = new ArrayList<String>();
-		//String[] stocks = stonks.toArray(new String[510]);
-
-		intro();		// title in cool text
-
-		System.out.println("Total number of stocks: " + stocks.length);
-		System.out.println("----------------------------------------------");
-
-
-
-		//lister(stocks);
-
 		Arrays.sort(stocks);
+		
 		for(String stock: stocks) {
-			if(!stock.equals(null)) {
-				System.out.println(stock);
-			}
-
 			URL url = new URL("https://finance.yahoo.com/quote/" + stock + "/key-statistics?p=" + stock);
 			URLConnection conn = url.openConnection();
 			InputStreamReader input = new InputStreamReader(conn.getInputStream());
@@ -74,30 +72,21 @@ public class StockCheckerConsole {
 					g1 = timer();
 					g = (e - f * g1) * 100 / f;
 					Stock entry = new Stock(stock, g, d, a, c, b);
-					if(a != 0.0) entries.add(entry); 	
-					
+					if(a != 0.0) entries.add(entry); 
+				
 					line = buff.readLine();
 				} catch(Exception e1) {
 					System.out.println(e1.getMessage());
 				}
-				
-				
 			}	
 			input.close();
 			buff.close();
 		}	
-		
-		sorter(entries, titles, new PECompare());			// sorts entries by P/E Ratio
+		//sorter(entries, titles, new PECompare());			// sorts entries by P/E Ratio
 		sorter(entries, titles, new ChangeCompare());		// sorts entries by % Change Today
-		
-
-//		Thread.sleep(10000);			// wait 15 seconds
-//		System.out.println(new String(new char[50]).replace("\0", "\r\n"));			// rerun program
-//		
-//		String[] args1 = {};
-//		stockChecker.main(args1);
+		return entries;
 	}
-
+		
 	/**
 	 * parser() finds the instance of "keyword" in the URL read by "line," and parses the numerical value needed.
 	 * @param keyword
@@ -154,7 +143,8 @@ public class StockCheckerConsole {
 		int startSecs = Integer.parseInt(start.substring(0, 2)) * 3600  +  Integer.parseInt(start.substring(3,5)) * 60;	
 		int nowSecs = Integer.parseInt(now.toString().substring(11, 13)) * 3600  +   // converting each to seconds
 				Integer.parseInt(now.toString().substring(14,16)) * 60 + Integer.parseInt(now.toString().substring(17, 19));
-		if ((((nowSecs - startSecs) / secsInTradingDay) <= 1) && (nowSecs > 34200)) {
+
+		if (((nowSecs - startSecs) / secsInTradingDay) <= 1) {
 			return (nowSecs - startSecs) / secsInTradingDay; // fraction of trading day elapsed
 		} else {
 			return 1;
@@ -179,41 +169,26 @@ public class StockCheckerConsole {
 		}
 			
 		Collections.sort(list, class1);		// sort by given Comparator class
-		System.out.println("\n \n=======================Stocks sorted by " + titles[i] + "=======================");
-		System.out.printf("%n%n%-16s %-15s %-16s %-16s %-17s %-17s %n",
-				titles[0],titles[1],titles[2],titles[3],titles[4],titles[5]);
+		
 		for(Stock entry: list) {
-			System.out.printf("%n%-17s %-17.2f %-17.2f %-17.2f %-17.2f %-2.2f%%", entry.getTicker() + ":", +
-					entry.getPeRatio(), entry.getPerVolume(), entry.getPrice(), entry.getPrevClose(), entry.getPerToday());
 			if(entry.getPerToday() > 5) {		
-				System.out.printf("%s", "<---");
 				if(status) {
-					try {
-						Music1.main(1);
-						status = false;
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+
+							try {
+								Music.main(1);
+								status = false;
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 				} else {
 					Toolkit.getDefaultToolkit().beep();		// make noise if stock rises 5%+
 				}				
 			}
 		}
 	}
-	
-	private static void intro() {
-		System.out.println(" /$$$$$$   /$$                         /$$              /$$$$$$                                                                       ");
-		System.out.println(" /$$__  $$ | $$                        | $$             /$$__  $$                                                                      ");
-		System.out.println("| $$  \\__//$$$$$$    /$$$$$$   /$$$$$$$| $$   /$$      | $$  \\__/  /$$$$$$$  /$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$$   /$$$$$$   /$$$$$$ ");
-		System.out.println("|  $$$$$$|_  $$_/   /$$__  $$ /$$_____/| $$  /$$/      |  $$$$$$  /$$_____/ /$$__  $$ /$$__  $$ /$$__  $$| $$__  $$ /$$__  $$ /$$__  $$");
-		System.out.println(" \\____  $$ | $$    | $$  \\ $$| $$      | $$$$$$/        \\____  $$| $$      | $$  \\__/| $$$$$$$$| $$$$$$$$| $$  \\ $$| $$$$$$$$| $$  \\__/");
-		System.out.println(" /$$  \\ $$ | $$ /$$| $$  | $$| $$      | $$_  $$        /$$  \\ $$| $$      | $$      | $$_____/| $$_____/| $$  | $$| $$_____/| $$      ");
-		System.out.println("|  $$$$$$/ |  $$$$/|  $$$$$$/|  $$$$$$$| $$ \\  $$      |  $$$$$$/|  $$$$$$$| $$      |  $$$$$$$|  $$$$$$$| $$  | $$|  $$$$$$$| $$      ");
-		System.out.println(" \\______/   \\___/   \\______/  \\_______/|__/  \\__/       \\______/  \\_______/|__/       \\_______/ \\_______/|__/  |__/ \\_______/|__/ \n");
-	}
 }
 
-class Music1  {
+class Music  {
 	public static void main(int i) throws Exception {
 		Clip clip = AudioSystem.getClip();
 		AudioInputStream ais = null;
@@ -225,4 +200,3 @@ class Music1  {
 	}
 
 }
-

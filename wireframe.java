@@ -660,7 +660,7 @@ public class wireframe extends JFrame {
 		
 		Properties props = new Properties();
 		props.setProperty("user","postgres");
-		props.setProperty("password","___________");
+		props.setProperty("password","c0nc0rd777");
 		props.setProperty("ssl","false");
 		Connection connection = DriverManager.getConnection(url, props);
 		
@@ -687,7 +687,7 @@ public class wireframe extends JFrame {
 		
 		Properties props = new Properties();
 		props.setProperty("user","postgres");
-		props.setProperty("password","_____________");
+		props.setProperty("password","c0nc0rd777");
 		props.setProperty("ssl","false");
 		Connection connection = DriverManager.getConnection(url, props);
 		
