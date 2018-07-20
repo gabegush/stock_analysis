@@ -29,3 +29,7 @@ You must have internet connection to run analysis.
 4. Add a portfolio by specifying a portfolio name.
 5. Add tickers to your portfolio. Once a stock is added, your portfolio information will be saved in the database, and your portfolio can be retrieved from your database.
 6. Press "Analysis" once you've finalized your portfolio.
+
+## Authors
+
+- Gabe Argush \- _main author_
