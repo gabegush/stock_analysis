@@ -7,6 +7,8 @@ You must have a CSV file titled "logins.csv" (or other name, if you'd like to ch
 
 You must have a PostgreSQL server created to make any changes to the portfolios. Edit the database properties to whatever you'd like, in the methods starting on lines 653 and 680 of wireframe.java.
 
+You must have a folder titled "resources." Add the two .jpg files to this folder.
+
 You must have internet connection to run analysis.
 
 ## Clarification of Files
