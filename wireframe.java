@@ -305,14 +305,12 @@ public class wireframe extends JFrame {
 							JOptionPane.QUESTION_MESSAGE, null, arrayPort, arrayPort[0]);
 					if(input2 > -1) {
 						portfolios.remove(input2);
-						//choosePortfolio.remove(input2);
 					}
 				}
 			}		
 		});
 		
 		menuBar.add(Box.createHorizontalStrut(12));
-		//menuBar.add(new JSeparator(SwingConstants.NORTH));
 
 		
 		analysis = new JButton("Analysis");
@@ -374,7 +372,6 @@ public class wireframe extends JFrame {
 			}			
 		});
 
-		//restart.setEnabled(false);
 		restart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -565,16 +562,14 @@ public class wireframe extends JFrame {
 		Login newUser = null;
 		Map<String, String> users = new HashMap<String, String>();
 		ArrayList<String> usernames = new ArrayList<String>();
+		String csvPath = "/Users/Gabe Argush/Desktop/logins.csv";
+		CSVReader reader = null;
 		
 		if(w == -1 || w == 2) {
 			System.exit(NORMAL);
 		}
 		
 		if(box.getSelectedItem().equals("Log In")) {
-			String csvPath = "/Users/Gabe Argush/Desktop/logins.csv";
-
-			CSVReader reader = null;
-
 			reader = new CSVReader(new FileReader(csvPath), CSVParser.DEFAULT_SEPARATOR, CSVParser.DEFAULT_QUOTE_CHARACTER, 1);
 
 			String[] record;
@@ -607,24 +602,17 @@ public class wireframe extends JFrame {
 			if(users.containsKey(newUser.getUsername()) && passText.equals(newPass)) {
 				username = newUser.getUsername();
 				System.out.println("Welcome, " + username + "!");
-				//Window.main(username);
 			}
 
 			reader.close();
 
 		} else if (box.getSelectedItem().equals("Register")) {
-
-			String csvPath = "/Users/Gabe Argush/Desktop/logins.csv";
-
-			CSVReader reader = null;
-
 			reader = new CSVReader(new FileReader(csvPath), CSVParser.DEFAULT_SEPARATOR, CSVParser.DEFAULT_QUOTE_CHARACTER, 1);
 			newUser = new Login(user.getText(), pass.getPassword().toString());
 
 			String[] record;
 			while ((record = reader.readNext()) != null) {
 				String username1 = record[0];
-				//String password1 = record[1];
 				if(username1.equals(user.getText())) {
 					JOptionPane.showMessageDialog(null, "That username is already on file.", "Account Error", 
 							JOptionPane.ERROR_MESSAGE);
@@ -761,7 +749,6 @@ public class wireframe extends JFrame {
 				model.removeRow(i);
 			}
 		}
-
 		insert.close();
 	}
 
@@ -819,7 +806,6 @@ public class wireframe extends JFrame {
 		updatePorts();
 		new wireframe();
 	}
-	
 }
 
 /**
