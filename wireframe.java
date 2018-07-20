@@ -99,7 +99,6 @@ public class wireframe extends JFrame {
 	double result, total, gpa, targetGpa;
 	static String username = "";
 
-
 	// ArrayLists to store information about each entry
 	ArrayList<String> arrayTicker = new ArrayList<String>();
 	ArrayList<String> arrayDates = new ArrayList<String>();
@@ -127,7 +126,6 @@ public class wireframe extends JFrame {
 		model = (DefaultTableModel) table.getModel();
 		table.setFont(new Font("Serif", Font.PLAIN, 20));
 		table.setRowHeight(35);
-		//table.setEnabled(false);
 		
 		labelDate = new JLabel("Date:");
 		labelTicker = new JLabel("Ticker:");
@@ -142,7 +140,6 @@ public class wireframe extends JFrame {
 		buttonRemoveSel.setEnabled(false);
 		buttonRemoveAll = new JButton("Remove All");
 		buttonRemoveAll.setEnabled(false);
-
 		
 		buttonToday = new JButton("Today's Date");
 		
@@ -152,7 +149,6 @@ public class wireframe extends JFrame {
 		panel4 = new JPanel();
 		panel5 = new JPanel();
 		panel6 = new JPanel();
-
 		
 		panel1.add(labelTicker);
 		panel1.add(fieldTicker);
@@ -174,8 +170,6 @@ public class wireframe extends JFrame {
 		
 		panel4.add(buttonRemoveSel);
 		panel4.add(buttonRemoveAll);
-		//panel4.add(labelReturnDay);
-		//panel4.add(labelReturnAll);
 		//panel3.setBackground(new Color(103,178,187));
 		
 		add(panel3, BorderLayout.NORTH);
@@ -239,12 +233,9 @@ public class wireframe extends JFrame {
 				}
 
 				fieldTicker.requestFocusInWindow();
-
 			}
-
 		});
 		menuBar.add(Box.createHorizontalStrut(12));
-		//menuBar.add(new JSeparator(SwingConstants.VERTICAL));
 
 
 		choosePortfolio = new JButton("Choose Portfolio");
@@ -284,22 +275,10 @@ public class wireframe extends JFrame {
 					JOptionPane.showMessageDialog(frame, "Add a portfolio to begin.");
 				}
 				fieldTicker.requestFocusInWindow();
-
-			}
-			
-			
-		});
-
-
-		port1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-
-			}
+			}	
 		});
 		
 		menuBar.add(Box.createHorizontalStrut(12));
-
 		
 		/**
 		 * Allows the user to remove a portfolio from their list.
