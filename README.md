@@ -25,7 +25,7 @@ You must have internet connection to run analysis.
 
 ## To use the program:
 
-1. Download all the files.
+1. Download all of the files.
 2. Edit the information specified above.
 3. Run wireframe.java and register with a username and password to begin. This data will be stored in your CSV file.
 4. Add a portfolio by specifying a portfolio name.
