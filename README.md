@@ -3,13 +3,13 @@ Portfolio management and stock tracking program with login system and ticker ana
 
 ## Critical Starting Information
 
-You must have a CSV file titled "logins.csv" (or other name, if you'd like to change it) for the login system to work. Make sure to change the filepath to wherever you have your file.
+You must have a CSV file titled "logins.csv" (or other name, if you'd like to change it) for the login system to work. Make sure to change the filepath to wherever you have your file (line 570 of wireframe.java).
 
-You must have a PostgreSQL server created to make any changes to the portfolios. Edit the database properties to whatever you'd like, in the methods starting on lines 653 and 680 of wireframe.java.
+You must have a PostgreSQL server created to make any changes to the portfolios. Edit the database properties to whatever you'd like, in the methods starting on lines 658 and 685 of wireframe.java.
 
-You must have a folder titled "resources." Add the two .jpg files in the given resources folder to this folder.
+You must have a folder titled "resources." Add the two .jpg files in the given resources folder to this folder. (lines 345 and 564 of wireframe.java).
 
-You must have internet connection to run analysis.
+You must have a stable internet connection to run stock analysis.
 
 ## Clarification of Files
 
